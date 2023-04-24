@@ -1,5 +1,5 @@
 #include "main.h"
-#include <stdlib.h>
+
 /**
  * print_u - A function that prints an unsigned integer
  * @u: unsigned int to print

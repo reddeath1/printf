@@ -1,5 +1,5 @@
 #include "main.h"
-#include <stdlib.h>
+
 /**
  * print_o - A function that prints an unsigned int in octal notation
  * @o: unsigned int to print
