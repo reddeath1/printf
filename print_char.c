@@ -7,8 +7,10 @@
  * Return: always
  */
 
-int print_char(char c, char *buffer, int *buf_pos) {
-    if (*buf_pos >= BUFFER_SIZE) {
+int print_char(char c, char *buffer, int *buf_pos)
+{
+    if (*buf_pos >= BUFFER_SIZE)
+    {
         write(STDOUT_FILENO, buffer, BUFFER_SIZE);
         *buf_pos = 0;
     }

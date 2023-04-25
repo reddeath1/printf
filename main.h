@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define BUFFER_SIZE 1024
 
@@ -12,5 +13,6 @@ int _putchar(char c);
 int print_string(const char *s, char *buffer, int *buf_pos);
 int print_int(int num, int base, int uppercase, char *buffer, int *buf_pos);
 int print_char(char c, char *buffer, int *buf_pos);
+int reverse_string(char *s, char *buffer, int *buf_pos);
 
 #endif  /* _MAIN_H */

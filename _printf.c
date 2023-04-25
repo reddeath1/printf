@@ -6,71 +6,92 @@
  * Return: always
  */
 
-int _printf(const char *format, ...) 
+int _printf(const char *format, ...)
 {
-	char buffer[BUFFER_SIZE];
+    char buffer[BUFFER_SIZE];
     int buf_pos = 0;
     int num_chars_printed = 0;
-	va_list args;
-	va_start(args, format);
+    va_list args;
+    va_start(args, format);
 
-    while (*format != '\0') {
-        if (*format == '%') {
+    while (*format != '\0')
+    {
+        if (*format == '%')
+        {
             format++;
-            switch (*format) {
-                case 'c': {
-                    char c = (char) va_arg(args, int);
+            switch (*format)
+            {
+                case 'c':
+                {
+                    char c = (char)va_arg(args, int);
                     num_chars_printed += print_char(c, buffer, &buf_pos);
                     break;
                 }
-                case 's': {
-                    char *s = va_arg(args, char*);
+                case 's':
+                {
+                    char *s = va_arg(args, char *);
                     num_chars_printed += print_string(s, buffer, &buf_pos);
                     break;
                 }
                 case 'd':
-                case 'i': {
+                case 'i':
+                {
                     int num = va_arg(args, int);
                     num_chars_printed += print_int(num, 10, 0, buffer, &buf_pos);
                     break;
                 }
-                case 'u': {
+                case 'u':
+                {
                     unsigned int num = va_arg(args, unsigned int);
                     num_chars_printed += print_int(num, 10, 0, buffer, &buf_pos);
                     break;
                 }
-                case 'o': {
+                case 'o':
+                {
                     unsigned int num = va_arg(args, unsigned int);
                     num_chars_printed += print_int(num, 8, 0, buffer, &buf_pos);
                     break;
                 }
-                case 'x': {
+                case 'x':
+                {
                     unsigned int num = va_arg(args, unsigned int);
                     num_chars_printed += print_int(num, 16, 0, buffer, &buf_pos);
                     break;
                 }
-                case 'X': {
+                case 'X':
+                {
                     unsigned int num = va_arg(args, unsigned int);
                     num_chars_printed += print_int(num, 16, 1, buffer, &buf_pos);
                     break;
                 }
-                case 'S': {
-                    char *s = va_arg(args, char*);
+                case 'S':
+                {
+                    char *s = va_arg(args, char *);
                     num_chars_printed += print_string(s, buffer, &buf_pos);
                     break;
                 }
-                case '%': {
+                case 'r':
+                {
+                    char* str = va_arg(args, char*);
+                    num_chars_printed += reverse_string(str, buffer, &buf_pos);
+                    break;
+                }
+                case '%':
+                {
                     num_chars_printed += print_char('%', buffer, &buf_pos);
                     break;
                 }
             }
-        } else {
+        }
+        else
+        {
             num_chars_printed += print_char(*format, buffer, &buf_pos);
         }
         format++;
     }
 
-    if (buf_pos > 0) {
+    if (buf_pos > 0)
+    {
         write(STDOUT_FILENO, buffer, buf_pos);
     }
 

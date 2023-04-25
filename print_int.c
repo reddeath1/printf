@@ -8,11 +8,13 @@
  * Return: always
  */
 
-int print_int(int num, int base, int uppercase, char *buffer, int *buf_pos) {
+int print_int(int num, int base, int uppercase, char *buffer, int *buf_pos)
+{
     char digits[] = "0123456789abcdef";
     int count = 0;
 
-    if (uppercase) {
+    if (uppercase)
+    {
         digits[10] = 'A';
         digits[11] = 'B';
         digits[12] = 'C';
@@ -21,12 +23,14 @@ int print_int(int num, int base, int uppercase, char *buffer, int *buf_pos) {
         digits[15] = 'F';
     }
 
-    if (num < 0) {
+    if (num < 0)
+    {
         count += print_char('-', buffer, buf_pos);
         num = -num;
     }
 
-    if (num >= base) {
+    if (num >= base)
+    {
         count += print_int(num / base, base, uppercase, buffer, buf_pos);
     }
 
