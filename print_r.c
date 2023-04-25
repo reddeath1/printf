@@ -7,15 +7,18 @@
  */
 int print_r(va_list r)
 {
-	char *s = va_arg(r, char*);
-	int i;
-	int j = 0;
+	char *str;
+	int i = 0, counter = 0;
 
-	if (s == NULL)
-		s = "(null)";
-	while (s[j] != '\0')
-		j++;
-	for (i = j - 1; i >= 0; i--)
-		_putchar(s[i]);
-	return (j);
+	str = va_arg(r, char *);
+	if (str == NULL)
+		str = ")llun(";
+	while (str[i])
+		i++;
+	for (i -= 1; i >= 0; i--)
+	{
+		_putchar(str[i]);
+		counter++;
+	}
+	return (counter);
 }
