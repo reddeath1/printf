@@ -8,7 +8,7 @@
  * Return: always
  */
 
-static int print_string(const char *s, char *buffer, int *buf_pos) {
+int print_string(const char *s, char *buffer, int *buf_pos) {
     int count = 0;
     while (*s != '\0') {
         if (*s >= ' ' && *s <= '~') {
