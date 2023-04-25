@@ -1,18 +1,49 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
-#include <stdarg.h>
-#include <unistd.h>
+#ifndef HOLBERTON_H
+#define HOLBERTON_H
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <stdarg.h>
+#include <limits.h>
+#include <unistd.h>
 
-#define BUFFER_SIZE 1024
 
-int _printf(const char *format, ...);
+
+/**
+ * struct format - match the conversion specifiers for printf
+ * @id: type char pointer of the specifier i.e (l, h) for (d, i, u, o, x, X)
+ * @f: type pointer to function for the conversion specifier
+ *
+ */
+
+typedef struct format
+{
+	char *id;
+	int (*f)();
+} convert_match;
+
 int _putchar(char c);
-int print_string(const char *s, char *buffer, int *buf_pos);
-int print_int(int num, int base, int uppercase, char *buffer, int *buf_pos);
-int print_char(char c, char *buffer, int *buf_pos);
-int reverse_string(char *s, char *buffer, int *buf_pos);
+int _printf(const char *format, ...);
+int _pointer(va_list val);
+int print_hex_aux(unsigned long int num);
+int print_HEX_aux(unsigned int num);
+int print_exclusive_string(va_list val);
+int print_HEX(va_list val);
+int print_hex(va_list val);
+int _oct(va_list val);
+int _unsigned(va_list args);
+int print_bin(va_list val);
+int reverse_string(va_list args);
+int _rot13(va_list args);
+int print_int(va_list args);
+int print_dec(va_list args);
+int _strlen(char *s);
+int *_strcpy(char *dest, char *src);
+int _strlenc(const char *s);
+int rev_string(char *s);
+int _strlenc(const char *s);
+int print_37(void);
+int print_char(va_list val);
+int print_string(va_list val);
 
-#endif  /* _MAIN_H */
+#endif

@@ -1,101 +1,52 @@
 #include "main.h"
 /**
- * _printf: print format string
- * @format: arg
- * @t: arg
- * Return: always
+ * _printf - is a function that selects the correct function to print.
+ * @format: identifier to look for.
+ * Return: the length of the string.
  */
 
-int _printf(const char *format, ...)
+int _printf(const char * const format, ...)
 {
-    char buffer[BUFFER_SIZE];
-    int buf_pos = 0;
-    int num_chars_printed = 0;
-    va_list args;
-    va_start(args, format);
+	convert_match m[] = {
+		{"%s", print_string}, 
+		{"%c", print_char},
+		{"%%", print_37},
+		{"%i", print_int},
+		{"%d", print_dec},
+		{"%r", reverse_string},
+		{"%R", _rot13},
+		{"%b", print_bin},
+		{"%u", _unsigned},
+		{"%o", _oct},
+		{"%x", print_hex},
+		{"%X", print_HEX},
+		{"%S", print_exclusive_string},
+		{"%p", _pointer}
+	};
 
-    while (*format != '\0')
-    {
-        if (*format == '%')
-        {
-            format++;
-            switch (*format)
-            {
-                case 'c':
-                {
-                    char c = (char)va_arg(args, int);
-                    num_chars_printed += print_char(c, buffer, &buf_pos);
-                    break;
-                }
-                case 's':
-                {
-                    char *s = va_arg(args, char *);
-                    num_chars_printed += print_string(s, buffer, &buf_pos);
-                    break;
-                }
-                case 'd':
-                case 'i':
-                {
-                    int num = va_arg(args, int);
-                    num_chars_printed += print_int(num, 10, 0, buffer, &buf_pos);
-                    break;
-                }
-                case 'u':
-                {
-                    unsigned int num = va_arg(args, unsigned int);
-                    num_chars_printed += print_int(num, 10, 0, buffer, &buf_pos);
-                    break;
-                }
-                case 'o':
-                {
-                    unsigned int num = va_arg(args, unsigned int);
-                    num_chars_printed += print_int(num, 8, 0, buffer, &buf_pos);
-                    break;
-                }
-                case 'x':
-                {
-                    unsigned int num = va_arg(args, unsigned int);
-                    num_chars_printed += print_int(num, 16, 0, buffer, &buf_pos);
-                    break;
-                }
-                case 'X':
-                {
-                    unsigned int num = va_arg(args, unsigned int);
-                    num_chars_printed += print_int(num, 16, 1, buffer, &buf_pos);
-                    break;
-                }
-                case 'S':
-                {
-                    char *s = va_arg(args, char *);
-                    num_chars_printed += print_string(s, buffer, &buf_pos);
-                    break;
-                }
-                case 'r':
-                {
-                    char* str = va_arg(args, char*);
-                    num_chars_printed += reverse_string(str, buffer, &buf_pos);
-                    break;
-                }
-                case '%':
-                {
-                    num_chars_printed += print_char('%', buffer, &buf_pos);
-                    break;
-                }
-            }
-        }
-        else
-        {
-            num_chars_printed += print_char(*format, buffer, &buf_pos);
-        }
-        format++;
-    }
+	va_list args;
+	int i = 0, j, len = 0;
 
-    if (buf_pos > 0)
-    {
-        write(STDOUT_FILENO, buffer, buf_pos);
-    }
+	va_start(args, format);
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
 
-    va_end(args);
-
-    return num_chars_printed;
+	while (format[i] != '\0')
+	{
+		j = 13;
+		while (j >= 0)
+		{
+			if (m[j].id[0] == format[i] && m[j].id[1] == format[i + 1])
+			{
+				len += m[j].f(args);
+				i = i + 2;
+			}
+			j--;
+		}
+		_putchar(format[i]);
+		len++;
+		i++;
+	}
+	va_end(args);
+	return (len);
 }

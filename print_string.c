@@ -1,30 +1,30 @@
 #include "main.h"
 
 /**
- * print_string: main func
- * @s: arg
- * @buffer: arg
- * @buf_pos: arg
- * Return: always
+ * print_string - print a string.
+ * @val: argumen t.
+ * Return: the length of the string.
  */
 
-int print_string(const char *s, char *buffer, int *buf_pos)
+int print_string(va_list val)
 {
-    int count = 0;
-    while (*s != '\0')
-    {
-        if (*s >= ' ' && *s <= '~')
-        {
-            count += print_char(*s, buffer, buf_pos);
-        }
-        else
-        {
-            count += print_char('\\', buffer, buf_pos);
-            count += print_char('x', buffer, buf_pos);
-            count += print_char((*s / 16) < 10 ? (*s / 16) + '0' : (*s / 16) - 10 + 'A', buffer, buf_pos);
-            count += print_char((*s % 16) < 10 ? (*s % 16) + '0' : (*s % 16) - 10 + 'A', buffer, buf_pos);
-        }
-        s++;
-    }
-    return count;
+	char *s;
+	int i, len;
+
+	s = va_arg(val, char *);
+	if (s == NULL)
+	{
+		s = "(null)";
+		len = _strlen(s);
+		for (i = 0; i < len; i++)
+			_putchar(s[i]);
+		return (len);
+	}
+	else
+	{
+		len = _strlen(s);
+		for (i = 0; i < len; i++)
+			_putchar(s[i]);
+		return (len);
+	}
 }

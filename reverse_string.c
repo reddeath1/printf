@@ -1,21 +1,23 @@
 #include "main.h"
+
 /**
- * reverse_string: main fun
- * @s: arg
- * @buffer: arg
- * @buf_pos:arg
- * Return: string
-*/
-
-int reverse_string(char *s, char *buffer, int *buf_pos) 
+ * reverse_string - function that prints a str in reverse
+ * @args: type struct va_arg where is allocated printf arguments
+ *
+ * Return: the string
+ */
+int reverse_string(va_list args)
 {
-	int len = strlen(s);
-	int i;
 
-	for (i = len - 1; i >= 0; i--) 
-	{
-		print_char(s[i], buffer, buf_pos);
-	}
-	
-	return len;
+	char *s = va_arg(args, char*);
+	int i;
+	int j = 0;
+
+	if (s == NULL)
+		s = "(null)";
+	while (s[j] != '\0')
+		j++;
+	for (i = j - 1; i >= 0; i--)
+		_putchar(s[i]);
+	return (j);
 }
