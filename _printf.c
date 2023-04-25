@@ -6,13 +6,13 @@
  * Return: always
  */
 
-int _printf(const char *format, ...) {
-    va_list args;
-    va_start(args, format);
-
-    char buffer[BUFFER_SIZE];
+int _printf(const char *format, ...) 
+{
+	char buffer[BUFFER_SIZE];
     int buf_pos = 0;
     int num_chars_printed = 0;
+	va_list args;
+	va_start(args, format);
 
     while (*format != '\0') {
         if (*format == '%') {
